@@ -40,13 +40,12 @@ data Trade (ccy :: Currency) =
     , ticker :: Ticker
     }
 
-gbp :: Money 'GBP
-gbp = MoneyCurrency :: Money GBP
-
 sumPerCurrency :: Money (c :: Currency) -> Money (c :: Currency) -> M.Map (Money (c :: Currency)) (Money (c :: Currency))
 sumPerCurrency c amount = M.fromList [(c, amount)]
 
-m = sumPerCurrency gbp (Money 1 :: Money GBP)
+mNotOk = sumPerCurrency (MoneyCurrency :: Money USD) (Money 1 :: Money GBP)
+
+mOk = sumPerCurrency (MoneyCurrency :: Money GBP) (Money 1 :: Money GBP)
 
 -- https://www.schoolofhaskell.com/school/starting-with-haskell/introduction-to-haskell/5-type-classes
 -- f :: a -> a -> a
